@@ -13,3 +13,5 @@
 **/*.zip
 **/*.lock
 **/*.code-workspace
+**/*.class
+**/*.jar
