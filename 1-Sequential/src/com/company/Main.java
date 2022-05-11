@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 
 // TODO use FloatingPoint
+// TODO potential dataset: https://www.kaggle.com/datasets/fivethirtyeight/uber-pickups-in-new-york-city?select=uber-raw-data-jul14.csv
 public class Main {
 
     public static void main(String[] args) {
