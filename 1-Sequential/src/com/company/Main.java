@@ -3,7 +3,6 @@ package com.company;
 import java.util.Random;
 import java.util.Scanner;
 
-
 // TODO potential dataset: https://www.kaggle.com/datasets/fivethirtyeight/uber-pickups-in-new-york-city?select=uber-raw-data-jul14.csv
 public class Main {
 
@@ -19,7 +18,7 @@ public class Main {
         long start = System.currentTimeMillis();
         float[][] res = multiplyMatrices(mat1, mat2);
         long end = System.currentTimeMillis();
-        long time = end-start;
+        long time = end - start;
 
         System.out.printf("\nIt took: \n%d ms, \n%f sec", time, time / Math.pow(10, 3));
     }
@@ -27,28 +26,27 @@ public class Main {
     private static float[][] generateMatrix(int size) {
         Random r = new Random();
         float[][] matrix = new float[size][size];
-        for(int i=0; i<size; i++)
-        {
-            for(int j=0; j<size; j++)
-            {
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
                 matrix[i][j] = r.nextInt(Integer.MAX_VALUE) + r.nextFloat();
             }
         }
         return matrix;
     }
 
-    private static float[][] multiplyMatrices(float[][] mat1, float[][] mat2){
-        float[][] res = new float[mat1.length][mat2.length];
+    private static float[][] multiplyMatrices(float[][] mat1, float[][] mat2) {
+        float[][] res = new float[mat1.length][mat2[0].length];
         float sum;
 
-        for (int i=0 ; i < res.length ; i++ )
-            for (int j=0 ; j < res.length; j++) {
+        for (int i = 0; i < res.length; i++) {
+            for (int j = 0; j < res.length; j++) {
                 sum = 0;
-                for (int k= 0 ; k < res.length; k++) {
-                    sum += mat1[i][k]*mat2[k][j] ;
+                for (int k = 0; k < res.length; k++) {
+                    sum += mat1[i][k] * mat2[k][j];
                 }
                 res[i][j] = sum;
             }
+        }
         return res;
     }
 
