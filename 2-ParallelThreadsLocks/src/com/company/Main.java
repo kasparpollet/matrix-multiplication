@@ -35,8 +35,8 @@ public class Main {
         float[][] matrix = new float[size][size];
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                matrix[i][j] = r.nextInt(Integer.MAX_VALUE) + r.nextFloat();
-//                matrix[i][j] = r.nextInt(9);
+//                matrix[i][j] = r.nextInt(Integer.MAX_VALUE/1000000000) + r.nextFloat();
+                matrix[i][j] = r.nextInt(20) + r.nextFloat();
             }
         }
         return matrix;

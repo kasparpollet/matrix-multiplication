@@ -10,7 +10,7 @@ public class Sequential {
             for (int j = 0; j < res.length; j++) {
                 sum = 0;
                 for (int k = 0; k < res.length; k++) {
-                    sum += mat1[i][k] * mat2[k][j];
+                    sum += mat1[i][k] * mat2[j][k];
                 }
                 res[i][j] = sum;
             }
