@@ -51,7 +51,7 @@ public class ParallelBlock {
     }
 
     private float[][] createMatrixFromSubMatrices(float[][][][] subMatrices) {
-        res = new float[mat1.length][mat2[0].length];
+        res = new float[mat1.length][mat2.length];
         int row, col;
 
         for (int i = 0; i < subMatrices.length; i++) {
