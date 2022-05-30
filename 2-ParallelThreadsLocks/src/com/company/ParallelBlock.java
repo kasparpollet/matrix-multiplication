@@ -30,7 +30,7 @@ public class ParallelBlock {
         return 1;
     }
 
-    private float[][][][] createSubMatrices(float[][] matrix) {
+    public float[][][][] createSubMatrices(float[][] matrix) {
         int subSize = mat1.length / numberOfSides;
 
         int size = (int) Math.pow(numberOfSides, 2);
@@ -50,7 +50,7 @@ public class ParallelBlock {
         return subMatrices;
     }
 
-    private float[][] createMatrixFromSubMatrices(float[][][][] subMatrices) {
+    public float[][] createMatrixFromSubMatrices(float[][][][] subMatrices) {
         res = new float[mat1.length][mat2.length];
         int row, col;
 
