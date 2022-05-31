@@ -20,14 +20,24 @@ public class Main {
         parallelBlock.multiplyMatrices();
         long end = System.currentTimeMillis();
         long time = end - start;
-        System.out.printf("\nBlock used %d threads and took: \n%d ms, \n%f sec\n", (int) Math.pow(parallelBlock.numberOfSides, 2), time, time / Math.pow(10, 3));
+        System.out.printf("\nBlock used %d threads and took: \n%d ms, \n%f sec\n",
+                (int) Math.pow(parallelBlock.numberOfSides, 2), time, time / Math.pow(10, 3));
 
         ParallelNaive parallelNaive = new ParallelNaive(mat1, mat2, numberOfThreads);
         start = System.currentTimeMillis();
         parallelNaive.multiplyMatrices();
         end = System.currentTimeMillis();
         time = end - start;
-        System.out.printf("\nNaive used %d threads and took: \n%d ms, \n%f sec\n", numberOfThreads, time, time / Math.pow(10, 3));
+        System.out.printf("\nNaive used %d threads and took: \n%d ms, \n%f sec\n", numberOfThreads, time,
+                time / Math.pow(10, 3));
+
+        ParallelQueue parallelQueue = new ParallelQueue(mat1, mat2, numberOfThreads);
+        start = System.currentTimeMillis();
+        parallelQueue.multiplyMatrices();
+        end = System.currentTimeMillis();
+        time = end - start;
+        System.out.printf("\nQueue used %d threads and took: \n%d ms, \n%f sec\n", numberOfThreads, time,
+                time / Math.pow(10, 3));
     }
 
     public static float[][] generateMatrix(int size) {
@@ -35,9 +45,9 @@ public class Main {
         float[][] matrix = new float[size][size];
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                matrix[i][j] = r.nextInt(Integer.MAX_VALUE) + r.nextFloat();
-//                matrix[i][j] = r.nextInt(Integer.MAX_VALUE/1_000_000);
-//                matrix[i][j] = (float) (Math.floor(r.nextFloat() * 1e2) / 1e2);
+                matrix[i][j] = r.nextInt(Integer.MAX_VALUE / 10_000_000);
+                // matrix[i][j] = r.nextInt(Integer.MAX_VALUE) + r.nextFloat();
+                // matrix[i][j] = r.nextInt(9);
             }
         }
         return matrix;

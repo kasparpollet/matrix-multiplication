@@ -9,12 +9,12 @@ public class Main {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
 
-//        System.out.println("Enter the size for the two matrices, it will be used for the columns and rows");
-        int[] sizes = { 100, 200, 400, 800, 1000, 1500, 2000, 2500, 3000, 4000, 5000 };
+        System.out.println("Enter the size for the two matrices, it will be used for the columns and rows");
+//        int[] sizes = { 100, 200, 400, 800, 1000, 1500, 2000, 2500, 3000, 4000, 5000 };
+//
+        int size = in.nextInt();
 
-//        int size = in.nextInt();
-
-        for (int size : sizes) {
+//        for (int size : sizes) {
             float[][] mat1 = generateMatrix(size);
             float[][] mat2 = generateMatrix(size);
 
@@ -22,21 +22,22 @@ public class Main {
             float[][] res = multiplyMatrices(mat1, mat2);
             long end = System.currentTimeMillis();
             long time = end - start;
+            printMatrix(res);
             System.out.println();
             System.out.println(size);
             System.out.printf("It took: \n%d ms, \n%f sec", time, time / Math.pow(10, 3));
             System.out.println();
-        }
+//        }
     }
 
     private static float[][] generateMatrix(int size) {
-        Random r = new Random();
+        Random r = new Random(32);
         float[][] matrix = new float[size][size];
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
 //                matrix[i][j] = r.nextInt(Integer.MAX_VALUE) + r.nextFloat();
-                matrix[i][j] = r.nextInt(Integer.MAX_VALUE);
-//                matrix[i][j] = r.nextInt(9);
+//                matrix[i][j] = r.nextInt(Integer.MAX_VALUE);
+                matrix[i][j] = r.nextInt(9);
 //                matrix[i][j] = r.nextInt(9) + r.nextFloat();
             }
         }
@@ -51,7 +52,7 @@ public class Main {
             for (int j = 0; j < res.length; j++) {
                 sum = 0;
                 for (int k = 0; k < res.length; k++) {
-                    sum += mat1[i][k] * mat2[k][j];
+                    sum += mat1[i][k] * mat2[j][k];
                 }
                 res[i][j] = sum;
             }

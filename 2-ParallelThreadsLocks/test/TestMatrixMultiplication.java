@@ -1,7 +1,4 @@
-import com.company.Main;
-import com.company.ParallelBlock;
-import com.company.ParallelNaive;
-import com.company.Sequential;
+import com.company.*;
 import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -13,8 +10,8 @@ public class TestMatrixMultiplication {
 
     @BeforeEach
     public void generateMatrices() {
-        mat1 = Main.generateMatrix(3000);
-        mat2 = Main.generateMatrix(3000);
+        mat1 = Main.generateMatrix(1000);
+        mat2 = Main.generateMatrix(1000);
     }
 
     @Test
@@ -45,6 +42,22 @@ public class TestMatrixMultiplication {
         for (int i = 0; i < resultParallelBlock.length; i++) {
             for (int j = 0; j < resultParallelBlock[0].length; j++) {
                 assertEquals(resultSequential[i][j], resultParallelBlock[i][j]);
+            }
+        }
+    }
+
+    @Test
+    public void testParallelQueueWithOneThreads() {
+        float[][] resultSequential = Sequential.multiplyMatrices(mat1, mat2);
+        ParallelQueue parallelQueue = new ParallelQueue(mat1, mat2, 1);
+        float[][] resultParallelQueue = parallelQueue.multiplyMatrices();
+
+        assertEquals(resultSequential.length, resultParallelQueue.length);
+        assertEquals(resultSequential[0].length, resultParallelQueue[0].length);
+
+        for (int i = 0; i < resultParallelQueue.length; i++) {
+            for (int j = 0; j < resultParallelQueue[0].length; j++) {
+                assertEquals(resultSequential[i][j], resultParallelQueue[i][j]);
             }
         }
     }
@@ -82,6 +95,22 @@ public class TestMatrixMultiplication {
     }
 
     @Test
+    public void testParallelQueueWithFourThreads() {
+        float[][] resultSequential = Sequential.multiplyMatrices(mat1, mat2);
+        ParallelQueue parallelQueue = new ParallelQueue(mat1, mat2, 4);
+        float[][] resultParallelQueue = parallelQueue.multiplyMatrices();
+
+        assertEquals(resultSequential.length, resultParallelQueue.length);
+        assertEquals(resultSequential[0].length, resultParallelQueue[0].length);
+
+        for (int i = 0; i < resultParallelQueue.length; i++) {
+            for (int j = 0; j < resultParallelQueue[0].length; j++) {
+                assertEquals(resultSequential[i][j], resultParallelQueue[i][j]);
+            }
+        }
+    }
+
+    @Test
     public void testCreateSubMatricesAndCreateMatrixAgain() {
         ParallelBlock parallelBlock = new ParallelBlock(mat1, mat2, 4);
         float[][][][] subMatrix1 = parallelBlock.createSubMatrices(mat1);
@@ -92,5 +121,12 @@ public class TestMatrixMultiplication {
                 assertEquals(mat1[i][j], test[i][j]);
             }
         }
+    }
+
+    @Test
+    public void testCreateQueue() {
+        ParallelQueue parallelQueue = new ParallelQueue(mat1, mat2, 4);
+        parallelQueue.fillQueue();
+        assertEquals(parallelQueue.toBeCalculatedQueue.toArray().length, mat1.length * mat2.length);
     }
 }

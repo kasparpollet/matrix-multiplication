@@ -1,8 +1,8 @@
 package com.company;
 
 public class ParallelNaive {
-    private final float[][] mat1;
-    private final float[][] mat2;
+    private final float[][] mat1; // float[row][col]
+    private final float[][] mat2; // float[col][row]
     private float[][] res;
     private final int numberOfThreads;
 

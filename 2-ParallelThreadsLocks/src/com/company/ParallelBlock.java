@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ParallelBlock {
-    private final float[][] mat1;
-    private final float[][] mat2;
+    private final float[][] mat1; // float[row][col]
+    private final float[][] mat2; // float[col][row]
     public float[][] res;
     private float[][][][] subRes;
     private final int maxNumberOfThreads;
@@ -68,7 +68,6 @@ public class ParallelBlock {
         return res;
     }
 
-    // We gaan hier al uit dat mat1[row][col] is en mat2[col][row]
     public float[][] multiplyMatrices() {
         List<ParallelThread> threads = new ArrayList<>();
 
