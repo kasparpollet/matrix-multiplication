@@ -5,29 +5,63 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 import javax.jms.*;
 
 public class JMSConsumer {
-    public static void main(String[] args) {
+    private Connection calculationConnection;
+    private Session calculationSession;
+    private MessageConsumer calculationMessageConsumer;
+
+    private Connection resultConnection;
+    private Session resultSession;
+    private MessageProducer resultMessageProducer;
+
+    private boolean keepProcessing = false;
+
+    private void connectCalculationQueue() {
         ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(JMSMagic.SERVER_CONNECTION);
-        // From versions 5.12.2 and 5.13.1 ActiveMQ does not trust the content of ObjectMessages. The following
-        // line is a dirty trick to let ActiveMQ trust the content. In real life one should specify the package(s)
-        // that can be trusted. See: https://activemq.apache.org/objectmessage.html
         connectionFactory.setTrustAllPackages(true);
         try {
-            Connection connection = connectionFactory.createConnection();
-            connection.start();
-            Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-            Queue queue = session.createQueue(JMSMagic.QUEUE_NAME);
-            MessageConsumer messageConsumer = session.createConsumer(queue);
+            calculationConnection = connectionFactory.createConnection();
+            calculationConnection.start();
+            calculationSession = calculationConnection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+            Queue queue = calculationSession.createQueue(JMSMagic.QUEUE_NAME_CALCULATIONS);
+            calculationMessageConsumer = calculationSession.createConsumer(queue);
+        } catch (JMSException e) {
+            e.printStackTrace();
+        }
+    }
 
-            System.out.println("Processing messages.");
-            boolean keepProcessing;
+    private void connectResultQueue() {
+        ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(JMSMagic.SERVER_CONNECTION);
+        connectionFactory.setTrustAllPackages(true);
+        try {
+            resultConnection = connectionFactory.createConnection();
+            resultConnection.start();
+            resultSession = resultConnection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+            Queue queue = resultSession.createQueue(JMSMagic.QUEUE_NAME_RESULTS);
+            resultMessageProducer = resultSession.createProducer(queue);
+        } catch (JMSException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void run() {
+        System.out.println("in the run");
+        connectCalculationQueue();
+        connectResultQueue();
+        try {
             do {
-                PrivateMessage message = (PrivateMessage) ((ObjectMessage) messageConsumer.receive()).getObject();
-                System.out.printf("Received [%s]\n", message.getMessage());
-                keepProcessing = !"STOP".equals(message.getMessage());
-            } while (keepProcessing);
+                ToCalculate toCalculate = (ToCalculate) ((ObjectMessage) calculationMessageConsumer.receive()).getObject();
+
+                keepProcessing = toCalculate.getI() == -1;
+                if (keepProcessing) break;
+                float sum = toCalculate.calculate();
+
+                ObjectMessage result = resultSession.createObjectMessage(new Result(toCalculate.getI(), toCalculate.getJ(), sum));
+                resultMessageProducer.send(result);
+            } while (true);
 
             System.out.println("Stopped processing messages.");
-            connection.close();
+            calculationConnection.close();
+            resultConnection.close();
         } catch (JMSException e) {
             e.printStackTrace();
         }
