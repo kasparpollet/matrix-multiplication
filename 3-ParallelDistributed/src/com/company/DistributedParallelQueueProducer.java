@@ -28,13 +28,13 @@ public class DistributedParallelQueueProducer {
 
 
     private void connectCalculationQueue() {
-        ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(JMSMagic.SERVER_CONNECTION);
+        ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(JMSConstants.SERVER_CONNECTION);
         connectionFactory.setTrustAllPackages(true);
         try {
             calculationConnection = connectionFactory.createConnection();
             calculationConnection.start();
             calculationSession = calculationConnection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-            Queue queue = calculationSession.createQueue(JMSMagic.QUEUE_NAME_CALCULATIONS);
+            Queue queue = calculationSession.createQueue(JMSConstants.QUEUE_NAME_CALCULATIONS);
             calculationMessageProducer = calculationSession.createProducer(queue);
         } catch (JMSException e) {
             e.printStackTrace();
@@ -42,13 +42,13 @@ public class DistributedParallelQueueProducer {
     }
 
     private void connectResultQueue() {
-        ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(JMSMagic.SERVER_CONNECTION);
+        ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(JMSConstants.SERVER_CONNECTION);
         connectionFactory.setTrustAllPackages(true);
         try {
             resultConnection = connectionFactory.createConnection();
             resultConnection.start();
             resultSession = resultConnection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-            Queue queue = resultSession.createQueue(JMSMagic.QUEUE_NAME_RESULTS);
+            Queue queue = resultSession.createQueue(JMSConstants.QUEUE_NAME_RESULTS);
             resultMessageConsumer = resultSession.createConsumer(queue);
         } catch (JMSException e) {
             e.printStackTrace();
@@ -80,13 +80,6 @@ public class DistributedParallelQueueProducer {
     }
 
     public float[][] multiplyMatrices() {
-
-        // START ALL CONSUMERS
-//        for (int i = 0; i < numberOfConsumers; i++) {
-//            System.out.println("starting consumer...");
-//            new JMSConsumer().run();
-//        }
-
         // FILL QUEUE
         connectCalculationQueue();
         fillQueue();
@@ -97,8 +90,7 @@ public class DistributedParallelQueueProducer {
         }
 
         connectResultQueue();
-        // Read new queue
-        // Set all results
+        // Read new queue & Set all results
         try {
             for (int i = 0; i < res.length; i++) {
                 for (int j = 0; j < res[0].length; j++) {
