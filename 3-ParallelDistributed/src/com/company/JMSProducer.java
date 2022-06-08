@@ -15,8 +15,9 @@ public class JMSProducer {
             Queue queue = session.createQueue(JMSMagic.QUEUE_NAME);
             MessageProducer messageProducer = session.createProducer(queue);
 
-            for (String arg : args) {
-                ObjectMessage message = session.createObjectMessage(new PrivateMessage(arg, 0));
+            String[] messages = {"efef", "efef"};
+            for (String text : messages) {
+                ObjectMessage message = session.createObjectMessage(new PrivateMessage(text, 0));
                 messageProducer.send(message);
             }
 

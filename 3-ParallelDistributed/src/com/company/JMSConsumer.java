@@ -10,7 +10,7 @@ public class JMSConsumer {
         // From versions 5.12.2 and 5.13.1 ActiveMQ does not trust the content of ObjectMessages. The following
         // line is a dirty trick to let ActiveMQ trust the content. In real life one should specify the package(s)
         // that can be trusted. See: https://activemq.apache.org/objectmessage.html
-//        connectionFactory.setTrustAllPackages(true);
+        connectionFactory.setTrustAllPackages(true);
         try {
             Connection connection = connectionFactory.createConnection();
             connection.start();
