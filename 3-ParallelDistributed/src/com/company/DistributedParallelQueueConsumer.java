@@ -44,7 +44,6 @@ public class DistributedParallelQueueConsumer {
     }
 
     public void run() {
-        System.out.println("in the run");
         connectCalculationQueue();
         connectResultQueue();
         try {
