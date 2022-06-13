@@ -21,3 +21,6 @@ Instructies om het project te installeren. <br><br>
 vul hier een integer nummer in.
 3. Het programma zal je vervolgends vragen voor het aantal threads die aangemaakt zullen worden om de berekeningen uit 
 te voeren, voer hier ook een nummer in.
+
+<strong>Url for ActiveMQ</strong>
+- http://localhost:8161/
