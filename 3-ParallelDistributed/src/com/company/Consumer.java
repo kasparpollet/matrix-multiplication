@@ -2,7 +2,7 @@ package com.company;
 
 public class Consumer {
     public static void main(String[] args) {
-        System.out.println("From Main2: starting consumer...");
+        System.out.println("Starting consumer...");
         new DistributedParallelQueueConsumer().run();
     }
 }
