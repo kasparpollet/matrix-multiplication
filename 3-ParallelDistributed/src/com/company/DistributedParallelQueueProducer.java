@@ -103,12 +103,6 @@ public class DistributedParallelQueueProducer {
             e.printStackTrace();
         }
 
-        try {
-            resultConnection.close();
-        } catch (JMSException e) {
-            e.printStackTrace();
-        }
-
         return res;
     }
 }

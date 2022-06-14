@@ -23,7 +23,6 @@ public class ToCalculate implements Serializable {
             sum += col[k] * row[k];
         }
         return sum;
-//        res[i][j] = sum;
     }
 
     public int getI() {

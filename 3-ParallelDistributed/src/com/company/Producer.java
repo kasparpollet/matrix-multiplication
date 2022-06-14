@@ -39,9 +39,10 @@ public class Producer {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 // matrix[i][j] = r.nextInt(Integer.MAX_VALUE / 10_000_000);
-                matrix[i][j] = r.nextFloat();
+//                matrix[i][j] = r.nextFloat();
+//                matrix[i][j] =  r.nextInt(Integer.MAX_VALUE);
                 // matrix[i][j] = r.nextInt(Integer.MAX_VALUE) + r.nextFloat();
-                // matrix[i][j] = r.nextInt(9);
+                 matrix[i][j] = r.nextInt(9);
             }
         }
         return matrix;
