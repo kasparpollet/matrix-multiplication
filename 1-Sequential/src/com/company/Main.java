@@ -10,24 +10,20 @@ public class Main {
         Scanner in = new Scanner(System.in);
 
         System.out.println("Enter the size for the two matrices, it will be used for the columns and rows");
-//        int[] sizes = { 100, 200, 400, 800, 1000, 1500, 2000, 2500, 3000, 4000, 5000 };
-//
         int size = in.nextInt();
 
-//        for (int size : sizes) {
-            float[][] mat1 = generateMatrix(size);
-            float[][] mat2 = generateMatrix(size);
+        float[][] mat1 = generateMatrix(size);
+        float[][] mat2 = generateMatrix(size);
 
-            long start = System.currentTimeMillis();
-            float[][] res = multiplyMatrices(mat1, mat2);
-            long end = System.currentTimeMillis();
-            long time = end - start;
-            printMatrix(res);
-            System.out.println();
-            System.out.println(size);
-            System.out.printf("It took: \n%d ms, \n%f sec", time, time / Math.pow(10, 3));
-            System.out.println();
-//        }
+        long start = System.currentTimeMillis();
+        float[][] res = multiplyMatrices(mat1, mat2);
+        long end = System.currentTimeMillis();
+        long time = end - start;
+        printMatrix(res);
+        System.out.println();
+        System.out.println(size);
+        System.out.printf("It took: \n%d ms, \n%f sec", time, time / Math.pow(10, 3));
+        System.out.println();
     }
 
     private static float[][] generateMatrix(int size) {
@@ -35,10 +31,10 @@ public class Main {
         float[][] matrix = new float[size][size];
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-//                matrix[i][j] = r.nextInt(Integer.MAX_VALUE) + r.nextFloat();
-//                matrix[i][j] = r.nextInt(Integer.MAX_VALUE);
-                matrix[i][j] = r.nextInt(9);
-//                matrix[i][j] = r.nextInt(9) + r.nextFloat();
+                matrix[i][j] = r.nextInt(Integer.MAX_VALUE) + r.nextFloat();
+                // matrix[i][j] = r.nextInt(Integer.MAX_VALUE);
+                // matrix[i][j] = r.nextInt(9);
+                // matrix[i][j] = r.nextInt(9) + r.nextFloat();
             }
         }
         return matrix;

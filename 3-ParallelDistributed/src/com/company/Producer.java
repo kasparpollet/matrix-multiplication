@@ -7,30 +7,21 @@ public class Producer {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
 
-//        System.out.println("Enter the size for the two matrices, it will be used for the columns and rows");
-//        int size = in.nextInt();
-//        System.out.println("Enter the number of consumers to use");
-//        int numberOfConsumers = in.nextInt();
+        System.out.println("Enter the size for the two matrices, it will be used for the columns and rows for both matrices");
+        int size = in.nextInt();
+        System.out.println("Enter the number of stop messages for the consumers to use");
+        int numberOfConsumers = in.nextInt();
 
-         int[] sizes = { 10, 20, 30, 40, 50, 100, 200, 300, 400, 500, 600 };
-         int[] consumers = { 0 };
+        float[][] mat1 = generateMatrix(size);
+        float[][] mat2 = generateMatrix(size);
 
-         for (int size : sizes) {
-            float[][] mat1 = generateMatrix(size);
-            float[][] mat2 = generateMatrix(size);
-            for (int numberOfConsumers : consumers) {
-                System.out.println();
-                System.out.println(size);
-
-                DistributedParallelQueueProducer parallelQueue = new DistributedParallelQueueProducer(mat1, mat2, numberOfConsumers);
-                long start = System.currentTimeMillis();
-                parallelQueue.multiplyMatrices();
-                long end = System.currentTimeMillis();
-                long time = end - start;
-                System.out.printf("\nQueue used %d threads and took: \n%d ms, \n%f sec\n", numberOfConsumers, time,
-                        time / Math.pow(10, 3));
-            }
-         }
+        DistributedParallelQueueProducer parallelQueue = new DistributedParallelQueueProducer(mat1, mat2, numberOfConsumers);
+        long start = System.currentTimeMillis();
+        parallelQueue.multiplyMatrices();
+        long end = System.currentTimeMillis();
+        long time = end - start;
+        System.out.printf("\nQueue used %d threads and took: \n%d ms, \n%f sec\n", numberOfConsumers, time,
+                time / Math.pow(10, 3));
     }
 
     public static float[][] generateMatrix(int size) {
@@ -38,11 +29,11 @@ public class Producer {
         float[][] matrix = new float[size][size];
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                // matrix[i][j] = r.nextInt(Integer.MAX_VALUE / 10_000_000);
+//                matrix[i][j] = r.nextInt(Integer.MAX_VALUE / 10_000_000);
 //                matrix[i][j] = r.nextFloat();
 //                matrix[i][j] =  r.nextInt(Integer.MAX_VALUE);
-                // matrix[i][j] = r.nextInt(Integer.MAX_VALUE) + r.nextFloat();
-                 matrix[i][j] = r.nextInt(9);
+                matrix[i][j] = r.nextInt(Integer.MAX_VALUE) + r.nextFloat();
+//                matrix[i][j] = r.nextInt(9);
             }
         }
         return matrix;
