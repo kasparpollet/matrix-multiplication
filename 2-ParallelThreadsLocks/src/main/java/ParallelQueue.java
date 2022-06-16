@@ -1,5 +1,3 @@
-package com.company;
-
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class ParallelQueue {

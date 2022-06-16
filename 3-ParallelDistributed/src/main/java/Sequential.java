@@ -1,5 +1,3 @@
-package com.company;
-
 public class Sequential {
 
     public static float[][] multiplyMatrices(float[][] mat1, float[][] mat2) {

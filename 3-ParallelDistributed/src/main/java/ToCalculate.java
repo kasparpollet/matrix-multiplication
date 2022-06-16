@@ -1,5 +1,3 @@
-package com.company;
-
 import java.io.Serializable;
 
 public class ToCalculate implements Serializable {

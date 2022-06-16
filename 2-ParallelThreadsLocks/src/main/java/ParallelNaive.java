@@ -1,4 +1,3 @@
-package com.company;
 
 public class ParallelNaive {
     private final float[][] mat1; // float[row][col]

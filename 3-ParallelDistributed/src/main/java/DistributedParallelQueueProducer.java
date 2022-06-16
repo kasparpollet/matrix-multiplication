@@ -1,5 +1,3 @@
-package com.company;
-
 import org.apache.activemq.ActiveMQConnectionFactory;
 
 import javax.jms.*;
