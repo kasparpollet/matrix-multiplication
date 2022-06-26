@@ -1,4 +1,3 @@
-package com.company;
 
 public interface JMSConstants {
     String SERVER_CONNECTION = "tcp://localhost:61616";

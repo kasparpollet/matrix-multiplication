@@ -1,5 +1,3 @@
-package com.company;
-
 import java.util.Random;
 import java.util.Scanner;
 
@@ -19,7 +17,7 @@ public class Main {
         float[][] res = multiplyMatrices(mat1, mat2);
         long end = System.currentTimeMillis();
         long time = end - start;
-//        printMatrix(res);
+        printMatrix(res);
         System.out.println();
         System.out.println(size);
         System.out.printf("It took: \n%d ms, \n%f sec", time, time / Math.pow(10, 3));
@@ -31,10 +29,10 @@ public class Main {
         float[][] matrix = new float[size][size];
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-//                matrix[i][j] = r.nextInt(Integer.MAX_VALUE) + r.nextFloat();
+                matrix[i][j] = r.nextInt(Integer.MAX_VALUE) + r.nextFloat();
                 // matrix[i][j] = r.nextInt(Integer.MAX_VALUE);
-//                 matrix[i][j] = r.nextInt(9);
-                 matrix[i][j] = r.nextFloat();
+                // matrix[i][j] = r.nextInt(9);
+                // matrix[i][j] = r.nextInt(9) + r.nextFloat();
             }
         }
         return matrix;
