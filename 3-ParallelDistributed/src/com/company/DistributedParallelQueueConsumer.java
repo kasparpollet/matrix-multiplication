@@ -8,15 +8,13 @@ public class DistributedParallelQueueConsumer {
     private Connection calculationConnection;
     private Session calculationSession;
     private MessageConsumer calculationMessageConsumer;
+    private final ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(JMSConstants.SERVER_CONNECTION);
 
     private Connection resultConnection;
     private Session resultSession;
     private MessageProducer resultMessageProducer;
 
-    private boolean keepProcessing = false;
-
     private void connectCalculationQueue() {
-        ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(JMSConstants.SERVER_CONNECTION);
         connectionFactory.setTrustAllPackages(true);
         try {
             calculationConnection = connectionFactory.createConnection();
@@ -30,7 +28,6 @@ public class DistributedParallelQueueConsumer {
     }
 
     private void connectResultQueue() {
-        ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(JMSConstants.SERVER_CONNECTION);
         connectionFactory.setTrustAllPackages(true);
         try {
             resultConnection = connectionFactory.createConnection();
@@ -44,6 +41,8 @@ public class DistributedParallelQueueConsumer {
     }
 
     public void run() {
+        boolean keepProcessing = false;
+
         connectCalculationQueue();
         connectResultQueue();
         try {
