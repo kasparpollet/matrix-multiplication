@@ -1,6 +1,5 @@
 # Parallel Computing
-### Team 05 
-#### Kaspar Pollet & Evan Sahit
+### Matrix Multiplication
 
 
 Instructies om het project te installeren. <br><br>
